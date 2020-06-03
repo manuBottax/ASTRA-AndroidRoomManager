@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ASTRA Android Controller</string>
+    <string name="app_brand">ASTRA</string>
+    <string name="app_full_name">Augmented Spaces for TRauma Assistance Controller</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Annulla</string>
+</resources>
