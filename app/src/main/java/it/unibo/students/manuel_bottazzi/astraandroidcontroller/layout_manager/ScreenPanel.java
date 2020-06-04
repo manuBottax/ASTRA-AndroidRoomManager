@@ -20,7 +20,7 @@ public class ScreenPanel extends DisplayPosition {
         this.childList = new ArrayList<>();
 
         this.panelLayout.setBackgroundColor(Color.BLUE);
-        this.panelLayout.setOrientation(LinearLayout.HORIZONTAL);
+        this.panelLayout.setOrientation(LinearLayout.VERTICAL);
     }
 
     public void addChildPanel(DisplayPosition child) {
@@ -32,12 +32,20 @@ public class ScreenPanel extends DisplayPosition {
         this.panelLayout.addView(child.getPanel(), layoutParams);
     }
 
-    public DisplayPosition getChildByID(int id) {
+    public DisplayPosition getChildPanel(int id) {
         DisplayPosition result = null;
         for (int i = 0; i < this.childList.size(); i ++){
             DisplayPosition c = this.childList.get(i);
-            if (c.getId() == id){
-                result = c;
+            if (c instanceof ParentPanel){
+                result = ((ParentPanel) c).getChildPanel(id);
+                if (result != null){
+                    return result;
+                }
+            } else {
+
+                if (c.getId() == id) {
+                    return c;
+                }
             }
         }
 

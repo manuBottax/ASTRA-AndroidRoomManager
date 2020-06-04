@@ -14,16 +14,16 @@ public class ParentPanel extends DisplayPosition {
 
     List<DisplayPosition> childList;
 
-    public ParentPanel(Context context, int id) {
-        super(context, id, 1024, 1024);
+    public ParentPanel(Context context, int id, int width, int height, int orientation) {
+        super(context, id, width, height);
 
         this.childList = new ArrayList<>();
 
         this.panelLayout.setBackgroundColor(Color.BLUE);
-        this.panelLayout.setOrientation(LinearLayout.VERTICAL);
+        this.panelLayout.setOrientation(orientation);
     }
 
-    public void addChildPanel(BasePanel child) {
+    public void addChildPanel(DisplayPosition child) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(10, 10, 10, 10);
 
@@ -36,8 +36,15 @@ public class ParentPanel extends DisplayPosition {
         DisplayPosition result = null;
         for (int i = 0; i < this.childList.size(); i ++){
             DisplayPosition c = this.childList.get(i);
-            if (c.getId() == id){
-                result = c;
+            if (c instanceof ParentPanel){
+                result = ((ParentPanel) c).getChildPanel(id);
+                if (result != null){
+                    return result;
+                }
+            } else {
+                if (c.getId() == id) {
+                    return c;
+                }
             }
         }
 

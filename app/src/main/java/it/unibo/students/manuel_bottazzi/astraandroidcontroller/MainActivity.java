@@ -14,10 +14,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,24 +28,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.adapter.PatientDataListAdapter;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.layout_manager.BasePanel;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.layout_manager.DisplayPosition;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.layout_manager.ParentPanel;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.layout_manager.ScreenPanel;
+import it.unibo.students.manuel_bottazzi.astraandroidcontroller.layout_manager.SystemPanel;
 import it.unibo.students.manuel_bottazzi.astraandroidcontroller.model.PatientData;
 
 public class MainActivity extends AppCompatActivity implements View.OnDragListener{
 
-    private LinearLayout screenLayout;
+    private static final int PARENT_ID = 42;
+
     private ScreenPanel screenPanel;
-
-    private BasePanel leftScreenPanel;
-    private ParentPanel rightScreenPanel;
-
-    private BasePanel rightPanel1;
-    private BasePanel rightPanel2;
-    private BasePanel rightPanel3;
 
     private RecyclerView serviceListView;
     private PatientDataListAdapter mAdapter;
@@ -88,34 +82,51 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
     private void loadCustomLayout() {
 
-        this.screenLayout = findViewById(R.id.screen_layout);
-        this.screenLayout.setBackgroundColor(Color.BLUE);
+        LinearLayout screenLayout = findViewById(R.id.screen_layout);
+        screenLayout.setBackgroundColor(Color.BLUE);
 
-        this.screenPanel = new ScreenPanel(this, R.id.screen_layout);
+        this.screenPanel = new ScreenPanel(this, PARENT_ID);
 
-        this.leftScreenPanel = new BasePanel(this, 1, 1024, 1024);
-        this.leftScreenPanel.setOnDragListener(this);
+        ParentPanel topScreenPanel = new ParentPanel(this, PARENT_ID, 2048,200, LinearLayout.HORIZONTAL);
 
+        BasePanel top1 = new BasePanel(this, 1, 700, 200);
+        top1.setOnDragListener(this);
 
-        this.rightScreenPanel = new ParentPanel(this, R.id.right_panel_layout );
+        BasePanel top2 = new BasePanel(this, 2, 700, 200);
+        top2.setOnDragListener(this);
 
-        this.rightPanel1 = new BasePanel(this, 2,  1024, 300);
-        this.rightPanel1.setOnDragListener(this);
-        this.rightScreenPanel.addChildPanel(this.rightPanel1);
+        BasePanel top3 = new BasePanel(this, 3, 700, 200);
+        top3.setOnDragListener(this);
 
+        topScreenPanel.addChildPanel(top1);
+        topScreenPanel.addChildPanel(top2);
+        topScreenPanel.addChildPanel(top3);
 
-        this.rightPanel2 = new BasePanel(this, 3, 1024, 300);
-        this.rightPanel2.setOnDragListener(this);
-        this.rightScreenPanel.addChildPanel(this.rightPanel2);
+        ParentPanel bottomScreenPanel = new ParentPanel(this, PARENT_ID, 2048,1200, LinearLayout.HORIZONTAL);
 
-        this.rightPanel3 = new BasePanel(this,4, 1024, 300);
-        this.rightPanel3.setOnDragListener(this);
-        this.rightScreenPanel.addChildPanel(this.rightPanel3);
+        BasePanel leftScreenPanel = new BasePanel(this, 4, 1100, 1200);
+        leftScreenPanel.setOnDragListener(this);
 
-        this.screenPanel.addChildPanel(leftScreenPanel);
-        this.screenPanel.addChildPanel(rightScreenPanel);
+        ParentPanel rightScreenPanel = new ParentPanel(this, PARENT_ID, 1024,1200, LinearLayout.VERTICAL);
 
-        this.screenLayout.addView(this.screenPanel.getPanel());
+        BasePanel rightPanel1 = new BasePanel(this, 5,  1024, 200);
+        rightPanel1.setOnDragListener(this);
+        rightScreenPanel.addChildPanel(rightPanel1);
+
+        BasePanel rightPanel2 = new BasePanel(this, 6, 1024, 200);
+        rightPanel2.setOnDragListener(this);
+        rightScreenPanel.addChildPanel(rightPanel2);
+
+        SystemPanel rightPanel3 = new SystemPanel(this,7, 1024, 200);
+        rightScreenPanel.addChildPanel(rightPanel3);
+
+        bottomScreenPanel.addChildPanel(leftScreenPanel);
+        bottomScreenPanel.addChildPanel(rightScreenPanel);
+
+        this.screenPanel.addChildPanel(topScreenPanel);
+        this.screenPanel.addChildPanel(bottomScreenPanel);
+
+        screenLayout.addView(this.screenPanel.getPanel());
     }
 
     @NotNull
@@ -200,10 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 boolean isLinear = view instanceof LinearLayout;
                 if( isLinear ) {
                     LinearLayout c = (LinearLayout) view;
-                    DisplayPosition p = this.screenPanel.getChildByID(c.getId());
-                    if (p == null) {
-                        p = this.rightScreenPanel.getChildPanel(c.getId());
-                    }
+                    DisplayPosition p = this.screenPanel.getChildPanel(c.getId());
                     p.boundData(draggedData);
                     sendCommandRequest(p);
                     c.removeAllViews();
