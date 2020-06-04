@@ -12,5 +12,5 @@
         android:textStyle="bold"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:background="@android:color/holo_red_light"/>
+        android:background="@android:color/holo_green_dark"/>
 </LinearLayout>

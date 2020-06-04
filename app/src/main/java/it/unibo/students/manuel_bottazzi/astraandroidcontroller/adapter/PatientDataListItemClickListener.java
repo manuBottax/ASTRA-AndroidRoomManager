@@ -39,8 +39,7 @@ public class PatientDataListItemClickListener implements View.OnLongClickListene
         // the type of the dragged data
         String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_INTENT};
 
-        // use the name as label in first parameter --> in futorue could be the id
-        //TODO: passare i dati che servono
+        // use the name as label in first parameter --> in futore could be the id
         ClipData data = new ClipData(patientData.getName(), mimeTypes, item);
 
         // Instantiates the drag shadow builder.
