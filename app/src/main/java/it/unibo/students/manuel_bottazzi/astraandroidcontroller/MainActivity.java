@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                     LinearLayout c = (LinearLayout) view;
                     DisplayPosition p = this.screenPanel.getChildByID(c.getId());
                     if (p == null) {
-                        p = this.rightScreenPanel.getChildByID(c.getId());
+                        p = this.rightScreenPanel.getChildPanel(c.getId());
                     }
                     p.boundData(draggedData);
                     sendCommandRequest(p);

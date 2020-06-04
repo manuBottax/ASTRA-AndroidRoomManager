@@ -58,9 +58,9 @@ public class PatientData {
 
     public String getSelectedOperation() {
         if (this.selectedOperation.equals("Visualizza")) {
-            return "visualise";
+            return "visualisation";
         } else if (this.selectedOperation.equals("Monitora")){
-            return "monitor";
+            return "monitoring";
         } else {
             return this.selectedOperation;
         }

@@ -32,7 +32,7 @@ public class ParentPanel extends DisplayPosition {
         this.panelLayout.addView(child.getPanel(), layoutParams);
     }
 
-    public DisplayPosition getChildByID(int id) {
+    public DisplayPosition getChildPanel(int id) {
         DisplayPosition result = null;
         for (int i = 0; i < this.childList.size(); i ++){
             DisplayPosition c = this.childList.get(i);
