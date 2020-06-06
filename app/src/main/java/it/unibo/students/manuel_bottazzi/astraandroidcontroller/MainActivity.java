@@ -52,13 +52,15 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
     private List<PatientData> serviceList;
 
     private String hostAddress;
+    private String port;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_custom_layout);
 
-        this.hostAddress = "192.168.1.249";
+        this.hostAddress = "192.168.1.120";
+        this.port = "3010";
 
         // get the screen always on --> no extra time to unlock
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -87,37 +89,37 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         this.screenPanel = new ScreenPanel(this, PARENT_ID);
 
-        ParentPanel topScreenPanel = new ParentPanel(this, PARENT_ID, 2048,200, LinearLayout.HORIZONTAL);
+        ParentPanel topScreenPanel = new ParentPanel(this, PARENT_ID, 2048,150, LinearLayout.HORIZONTAL);
 
-        BasePanel top1 = new BasePanel(this, 1, 700, 200);
+        BasePanel top1 = new BasePanel(this, 1, 700, 150);
         top1.setOnDragListener(this);
 
-        BasePanel top2 = new BasePanel(this, 2, 700, 200);
+        BasePanel top2 = new BasePanel(this, 2, 700, 150);
         top2.setOnDragListener(this);
 
-        BasePanel top3 = new BasePanel(this, 3, 700, 200);
+        BasePanel top3 = new BasePanel(this, 3, 700, 150);
         top3.setOnDragListener(this);
 
         topScreenPanel.addChildPanel(top1);
         topScreenPanel.addChildPanel(top2);
         topScreenPanel.addChildPanel(top3);
 
-        ParentPanel bottomScreenPanel = new ParentPanel(this, PARENT_ID, 2048,1200, LinearLayout.HORIZONTAL);
+        ParentPanel bottomScreenPanel = new ParentPanel(this, PARENT_ID, 2048,1250, LinearLayout.HORIZONTAL);
 
-        BasePanel leftScreenPanel = new BasePanel(this, 4, 1100, 1200);
+        BasePanel leftScreenPanel = new BasePanel(this, 4, 1100, 1250);
         leftScreenPanel.setOnDragListener(this);
 
-        ParentPanel rightScreenPanel = new ParentPanel(this, PARENT_ID, 1024,1200, LinearLayout.VERTICAL);
+        ParentPanel rightScreenPanel = new ParentPanel(this, PARENT_ID, 1024,1250, LinearLayout.VERTICAL);
 
-        BasePanel rightPanel1 = new BasePanel(this, 5,  1024, 200);
+        BasePanel rightPanel1 = new BasePanel(this, 5,  1024, 125);
         rightPanel1.setOnDragListener(this);
         rightScreenPanel.addChildPanel(rightPanel1);
 
-        BasePanel rightPanel2 = new BasePanel(this, 6, 1024, 200);
+        BasePanel rightPanel2 = new BasePanel(this, 6, 1024, 125);
         rightPanel2.setOnDragListener(this);
         rightScreenPanel.addChildPanel(rightPanel2);
 
-        SystemPanel rightPanel3 = new SystemPanel(this,7, 1024, 200);
+        SystemPanel rightPanel3 = new SystemPanel(this,7, 1024, 125);
         rightScreenPanel.addChildPanel(rightPanel3);
 
         bottomScreenPanel.addChildPanel(leftScreenPanel);
@@ -258,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url ="http://" + this.hostAddress + "/api/commands";
+        String url ="http://" + this.hostAddress + ":" + this.port + "/api/commands";
 
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
@@ -288,7 +290,8 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
             paramsData.put("position", displayPosition.getId());
 
             requestData.put("type", displayPosition.getBoundedData().getSelectedOperation());
-            requestData.put("target", "display_SR");
+            requestData.put("category", "room");
+            requestData.put("target", "display_sr");
             requestData.put("issuer", "ASTRA_ARM");
             requestData.put("params", paramsData);
 
