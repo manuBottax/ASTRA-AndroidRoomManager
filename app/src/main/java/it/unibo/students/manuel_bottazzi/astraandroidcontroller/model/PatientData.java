@@ -7,20 +7,17 @@ public class PatientData {
 
     public enum DataCategory {
         VISUALISATION_ONLY,
-        MONITORING_ONLY,
-        ACTION,
+        MONITORING_ONLY
     }
 
     private String name;
     private String dataType;
-    private boolean inUse;
     private List<String> availableOperationList;
     private String selectedOperation;
 
     public PatientData(String name, String dataType){
         this.name = name;
         this.dataType = dataType;
-        this.inUse = false;
 
         this.availableOperationList = new ArrayList<>();
 
@@ -33,7 +30,6 @@ public class PatientData {
     public PatientData(String name, String dataType, DataCategory category){
         this.name = name;
         this.dataType = dataType;
-        this.inUse = false;
 
         this.availableOperationList = new ArrayList<>();
 
@@ -41,8 +37,6 @@ public class PatientData {
             this.availableOperationList.add("Monitora");
         } else if (category == DataCategory.VISUALISATION_ONLY) {
             this.availableOperationList.add("Visualizza");
-        } else if (category == DataCategory.ACTION){
-            this.availableOperationList.add("Esegui");
         }
 
         this.selectedOperation = this.availableOperationList.get(0);
@@ -64,14 +58,6 @@ public class PatientData {
         this.dataType = dataType;
     }
 
-    public void setInUse(boolean inUse) {
-        this.inUse = inUse;
-    }
-
-    public boolean isInUse() {
-        return inUse;
-    }
-
     public List<String> getAvailableOperationList() {
         return availableOperationList;
     }
@@ -86,8 +72,6 @@ public class PatientData {
             return "visualisation";
         } else if (this.selectedOperation.equals("Monitora")){
             return "monitoring";
-        } else if (this.selectedOperation.equals("Esegui")){
-            return "action";
         } else {
             return this.selectedOperation;
         }

@@ -59,16 +59,12 @@ public class PatientDataListItemClickListener implements View.OnLongClickListene
 
         //Set view visibility to INVISIBLE as we are going to drag the view
         view.setVisibility(View.INVISIBLE);
-        this.patientData.setInUse(true);
         return true;
     }
 
     @Override
     public void onClick(View view) {
-        if (this.patientData.isInUse()){
-
             PatientDataOptionsDialog dialog = new PatientDataOptionsDialog(this.patientData);
             dialog.show(this.context.getSupportFragmentManager(),"test");
-        }
     }
 }
