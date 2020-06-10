@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         //lst.add(new PatientData("Tempo Stimato di arrivo", "eta", PatientData.DataCategory.MONITORING_ONLY));
         lst.add(new PatientData("Tempo Totale", "total_time", PatientData.DataCategory.MONITORING_ONLY));
         lst.add(new PatientData("Tempo Procedura", "procedure_time", PatientData.DataCategory.MONITORING_ONLY));
-        lst.add(new PatientData("Rotem", "rotem", PatientData.DataCategory.MONITORING_ONLY));
 
         //Personal Data
         lst.add(new PatientData("Dati anagrafici del paziente", "patient_details", PatientData.DataCategory.VISUALISATION_ONLY));
