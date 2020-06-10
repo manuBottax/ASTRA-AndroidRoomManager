@@ -5,21 +5,45 @@ import java.util.List;
 
 public class PatientData {
 
+    public enum DataCategory {
+        VISUALISATION_ONLY,
+        MONITORING_ONLY,
+        ACTION,
+    }
+
     private String name;
-    private String type;
+    private String dataType;
     private boolean inUse;
     private List<String> availableOperationList;
     private String selectedOperation;
 
-    public PatientData(String name, String type){
+    public PatientData(String name, String dataType){
         this.name = name;
-        this.type = type;
+        this.dataType = dataType;
         this.inUse = false;
 
         this.availableOperationList = new ArrayList<>();
 
         this.availableOperationList.add("Visualizza");
         this.availableOperationList.add("Monitora");
+
+        this.selectedOperation = this.availableOperationList.get(0);
+    }
+
+    public PatientData(String name, String dataType, DataCategory category){
+        this.name = name;
+        this.dataType = dataType;
+        this.inUse = false;
+
+        this.availableOperationList = new ArrayList<>();
+
+        if (category == DataCategory.MONITORING_ONLY){
+            this.availableOperationList.add("Monitora");
+        } else if (category == DataCategory.VISUALISATION_ONLY) {
+            this.availableOperationList.add("Visualizza");
+        } else if (category == DataCategory.ACTION){
+            this.availableOperationList.add("Esegui");
+        }
 
         this.selectedOperation = this.availableOperationList.get(0);
     }
@@ -32,12 +56,12 @@ public class PatientData {
         this.name = name;
     }
 
-    public String getType() {
-        return this.type;
+    public String getDataType() {
+        return this.dataType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public void setInUse(boolean inUse) {
@@ -54,6 +78,7 @@ public class PatientData {
 
     public void setAvailableOperationList(List<String> availableOperationList) {
         this.availableOperationList = availableOperationList;
+        this.selectedOperation = this.availableOperationList.get(0);
     }
 
     public String getSelectedOperation() {
@@ -61,6 +86,8 @@ public class PatientData {
             return "visualisation";
         } else if (this.selectedOperation.equals("Monitora")){
             return "monitoring";
+        } else if (this.selectedOperation.equals("Esegui")){
+            return "action";
         } else {
             return this.selectedOperation;
         }

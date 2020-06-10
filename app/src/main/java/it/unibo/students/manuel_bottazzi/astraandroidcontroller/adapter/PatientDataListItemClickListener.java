@@ -31,7 +31,7 @@ public class PatientDataListItemClickListener implements View.OnLongClickListene
         //collect the needed data via intent
         Intent patientIntent = new Intent();
         patientIntent.putExtra("patientDataName", this.patientData.getName());
-        patientIntent.putExtra("patientDataType", this.patientData.getType());
+        patientIntent.putExtra("patientDataType", this.patientData.getDataType());
         patientIntent.putExtra("patientDataSelectedOperation", this.patientData.getSelectedOperation());
         patientIntent.putExtra( "patientDataPosition", this.position);
         ClipData.Item item = new ClipData.Item(patientIntent);

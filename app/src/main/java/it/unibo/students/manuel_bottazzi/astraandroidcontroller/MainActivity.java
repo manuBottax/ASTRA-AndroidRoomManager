@@ -137,13 +137,38 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         //TODO: recuperare i dati disponibili dal sistema -> aggiornare man mano che diventano disponibili
         // DATI DI ESEMPIO
+
+        // Vital Parameters
+        lst.add(new PatientData("Pressione Arteriosa", "blood_pressure"));
+        lst.add(new PatientData("Saturazione", "spO2"));
+        lst.add(new PatientData("Frequenza Cardiaca", "heart_rate"));
+        lst.add(new PatientData("Temperatura", "temperature"));
+
+        //Biometrical Data
+        lst.add(new PatientData("Livello CO2", "CO2_level", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Emogas Analisi", "ega", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Rotem", "rotem", PatientData.DataCategory.MONITORING_ONLY));
+
+        //Diagnostic data
+        lst.add(new PatientData("RX Torace", "chest_rx", PatientData.DataCategory.VISUALISATION_ONLY));
+        lst.add(new PatientData("TAC", "tac", PatientData.DataCategory.VISUALISATION_ONLY));
         lst.add(new PatientData("ECG", "ecg"));
-        lst.add(new PatientData("Parametri Vitali", "vital_parameters"));
-        lst.add(new PatientData("Lastra Torace", "chest_rx"));
-        lst.add(new PatientData("Esami del sangue", "blood_exam"));
-        for(int i = 0; i < 5 ; i ++){
-            lst.add(new PatientData("Altre Info " + i , "others_" + i));
-        }
+        lst.add(new PatientData("Esami del sangue", "blood_tests", PatientData.DataCategory.VISUALISATION_ONLY));
+
+        //Temporal Data
+        //lst.add(new PatientData("Tempo Stimato di arrivo", "eta", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Tempo Totale", "total_time", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Tempo Procedura", "procedure_time", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Rotem", "rotem", PatientData.DataCategory.MONITORING_ONLY));
+
+        //Personal Data
+        lst.add(new PatientData("Dati anagrafici del paziente", "patient_details", PatientData.DataCategory.VISUALISATION_ONLY));
+
+        //Trauma Tracker Data
+        lst.add(new PatientData("Report Trauma Tracker", "tt_report"));
+
+        //Environment Data
+        lst.add(new PatientData("Sacche di sangue utilizzate", "used_blood_unit"));
 
         return lst;
     }
@@ -253,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
     private void sendCommandRequest(DisplayPosition displayPosition) {
 
-        Toast.makeText(this, "Data " + displayPosition.getBoundedData().getType() + " is dragged to " + displayPosition.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Data " + displayPosition.getBoundedData().getDataType() + " is dragged to " + displayPosition.getId(), Toast.LENGTH_SHORT).show();
 
         //Invio della richiesta al servizio web.
         final Context ctx = this;
@@ -286,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         JSONObject paramsData = new JSONObject();
 
         try {
-            paramsData.put("value", displayPosition.getBoundedData().getType());
+            paramsData.put("value", displayPosition.getBoundedData().getDataType());
             paramsData.put("position", displayPosition.getId());
 
             requestData.put("type", displayPosition.getBoundedData().getSelectedOperation());
