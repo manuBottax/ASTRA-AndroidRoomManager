@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         //TODO: recuperare i dati disponibili dal sistema -> aggiornare man mano che diventano disponibili
         // DATI DI ESEMPIO
 
+        //Personal Data
+        lst.add(new PatientData("Dati anagrafici del paziente", "patient_details", PatientData.DataCategory.VISUALISATION_ONLY));
+
         // Vital Parameters
         lst.add(new PatientData("Pressione Arteriosa", "blood_pressure"));
         lst.add(new PatientData("Saturazione", "spO2"));
@@ -145,26 +148,23 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         lst.add(new PatientData("Temperatura", "temperature"));
 
         //Biometrical Data
-        lst.add(new PatientData("Livello CO2", "CO2_level", PatientData.DataCategory.MONITORING_ONLY));
-        lst.add(new PatientData("Emogas Analisi", "ega", PatientData.DataCategory.MONITORING_ONLY));
-        lst.add(new PatientData("Rotem", "rotem", PatientData.DataCategory.MONITORING_ONLY));
+        lst.add(new PatientData("Livello CO2", "CO2_level"));
+        lst.add(new PatientData("Emogas Analisi", "ega"));
+        lst.add(new PatientData("Rotem", "rotem"));
 
         //Diagnostic data
+        lst.add(new PatientData("Esami del sangue", "blood_tests", PatientData.DataCategory.VISUALISATION_ONLY));
+        lst.add(new PatientData("ECG", "ecg", PatientData.DataCategory.VISUALISATION_ONLY));
         lst.add(new PatientData("RX Torace", "chest_rx", PatientData.DataCategory.VISUALISATION_ONLY));
         lst.add(new PatientData("TAC", "tac", PatientData.DataCategory.VISUALISATION_ONLY));
-        lst.add(new PatientData("ECG", "ecg"));
-        lst.add(new PatientData("Esami del sangue", "blood_tests", PatientData.DataCategory.VISUALISATION_ONLY));
 
         //Temporal Data
-        //lst.add(new PatientData("Tempo Stimato di arrivo", "eta", PatientData.DataCategory.MONITORING_ONLY));
-        lst.add(new PatientData("Tempo Totale", "total_time", PatientData.DataCategory.MONITORING_ONLY));
-        lst.add(new PatientData("Tempo Procedura", "procedure_time", PatientData.DataCategory.MONITORING_ONLY));
-
-        //Personal Data
-        lst.add(new PatientData("Dati anagrafici del paziente", "patient_details", PatientData.DataCategory.VISUALISATION_ONLY));
+        lst.add(new PatientData("Tempo Stimato di arrivo", "eta"));
+        lst.add(new PatientData("Tempo Totale", "total_time"));
+        //lst.add(new PatientData("Tempo Procedura", "procedure_time", PatientData.DataCategory.MONITORING_ONLY));
 
         //Trauma Tracker Data
-        lst.add(new PatientData("Report Trauma Tracker", "tt_report"));
+        //lst.add(new PatientData("Report Trauma Tracker", "tt_report"));
 
         //Environment Data
         lst.add(new PatientData("Sacche di sangue utilizzate", "used_blood_unit"));
