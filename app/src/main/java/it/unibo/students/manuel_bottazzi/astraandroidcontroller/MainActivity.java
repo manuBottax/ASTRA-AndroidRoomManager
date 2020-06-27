@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         this.serviceListView.setAdapter(mAdapter);
 
-
     }
 
     private void loadCustomLayout() {
@@ -91,14 +90,14 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         ParentPanel topScreenPanel = new ParentPanel(this, PARENT_ID, 2048,150, LinearLayout.HORIZONTAL);
 
-        BasePanel top1 = new BasePanel(this, 1, 700, 150);
-        top1.setOnDragListener(this);
+        SystemPanel top1 = new SystemPanel(this, 1, 700, 150);
+        //top1.setOnDragListener(this);
 
-        BasePanel top2 = new BasePanel(this, 2, 700, 150);
-        top2.setOnDragListener(this);
+        SystemPanel top2 = new SystemPanel(this, 2, 700, 150);
+        //top2.setOnDragListener(this);
 
-        BasePanel top3 = new BasePanel(this, 3, 700, 150);
-        top3.setOnDragListener(this);
+        SystemPanel top3 = new SystemPanel(this, 3, 700, 150);
+        //top3.setOnDragListener(this);
 
         topScreenPanel.addChildPanel(top1);
         topScreenPanel.addChildPanel(top2);
@@ -106,20 +105,26 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
         ParentPanel bottomScreenPanel = new ParentPanel(this, PARENT_ID, 2048,1250, LinearLayout.HORIZONTAL);
 
-        BasePanel leftScreenPanel = new BasePanel(this, 4, 1100, 1250);
-        leftScreenPanel.setOnDragListener(this);
+        ParentPanel leftScreenPanel = new ParentPanel(this, PARENT_ID, 1024, 1250, LinearLayout.VERTICAL);
+
+        SystemPanel leftPanel1 = new SystemPanel(this, 4, 1024, 125);
+        leftScreenPanel.addChildPanel(leftPanel1);
+
+        SystemPanel leftPanel2 = new SystemPanel(this, 5, 1024, 250);
+        leftScreenPanel.addChildPanel(leftPanel2);
 
         ParentPanel rightScreenPanel = new ParentPanel(this, PARENT_ID, 1024,1250, LinearLayout.VERTICAL);
 
-        BasePanel rightPanel1 = new BasePanel(this, 5,  1024, 125);
+        BasePanel rightPanel1 = new BasePanel(this, 6,  1024, 125);
         rightPanel1.setOnDragListener(this);
         rightScreenPanel.addChildPanel(rightPanel1);
 
-        BasePanel rightPanel2 = new BasePanel(this, 6, 1024, 125);
+        BasePanel rightPanel2 = new BasePanel(this, 7, 1024, 125);
         rightPanel2.setOnDragListener(this);
         rightScreenPanel.addChildPanel(rightPanel2);
 
-        SystemPanel rightPanel3 = new SystemPanel(this,7, 1024, 125);
+        BasePanel rightPanel3 = new BasePanel(this,8, 1024, 125);
+        rightPanel3.setOnDragListener(this);
         rightScreenPanel.addChildPanel(rightPanel3);
 
         bottomScreenPanel.addChildPanel(leftScreenPanel);
@@ -153,18 +158,14 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         lst.add(new PatientData("Rotem", "rotem"));
 
         //Diagnostic data
-        lst.add(new PatientData("Esami del sangue", "blood_tests", PatientData.DataCategory.VISUALISATION_ONLY));
+        lst.add(new PatientData("TAC cerebrale", "tac", PatientData.DataCategory.VISUALISATION_ONLY));
         lst.add(new PatientData("ECG", "ecg", PatientData.DataCategory.VISUALISATION_ONLY));
         lst.add(new PatientData("RX Torace", "chest_rx", PatientData.DataCategory.VISUALISATION_ONLY));
-        lst.add(new PatientData("TAC", "tac", PatientData.DataCategory.VISUALISATION_ONLY));
+        lst.add(new PatientData("Esami del sangue", "blood_tests", PatientData.DataCategory.VISUALISATION_ONLY));
 
         //Temporal Data
         lst.add(new PatientData("Tempo Stimato di arrivo", "eta"));
         lst.add(new PatientData("Tempo Totale", "total_time"));
-        //lst.add(new PatientData("Tempo Procedura", "procedure_time", PatientData.DataCategory.MONITORING_ONLY));
-
-        //Trauma Tracker Data
-        //lst.add(new PatientData("Report Trauma Tracker", "tt_report"));
 
         //Environment Data
         lst.add(new PatientData("Sacche di sangue utilizzate", "used_blood_unit"));
